@@ -1,0 +1,22 @@
+<mat-card *ngFor="let item of cartItems">
+  <div class="cart-item">
+    <img [src]="item.product.image" alt="{{item.product.name}}">
+    <div class="details">
+      <h3>{{item.product.name}}</h3>
+      <p>Preço: {{item.product.price | currency}}</p>
+      <mat-form-field>
+         <mat-label>Quantidade</mat-label>
+         <input matInput type="number" [(ngModel)]="item.quantity" (change)="update(item.product, item.quantity)">
+      </mat-form-field>
+      <button mat-button (click)="remove(item.product)">Remover</button>
+    </div>
+    <div class="subtotal">
+      {{ item.quantity * item.product.price | currency }}
+    </div>
+  </div>
+</mat-card>
+
+<div class="total">
+  Total: {{ getTotal() | currency }}
+</div>
+<button mat-raised-button color="primary" (click)="checkout()">Finalizar pedido</button>

@@ -1,0 +1,22 @@
+.botoes-container {
+  display: flex;
+  justify-content: center;       /* Centraliza os botões */
+  gap: 20px;                     /* Espaço entre os botões */
+  margin-top: 30px;
+  flex-wrap: wrap;               /* Para responsividade */
+}
+
+.botao-personalizado {
+  width: 160px;                  /* Largura fixa */
+  height: 50px;                  /* Altura aumentada */
+  border-radius: 12px !important; /* Cantos arredondados */
+  font-family: 'Roboto', sans-serif; /* Fonte igual ao título */
+  font-size: 16px;
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+/* Efeito hover com sombra maior */
+.botao-personalizado:hover {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4); /* Sombra mais intensa */
+  transform: translateY(-2px);                /* Leve "salto" ao passar o mouse */
+}
