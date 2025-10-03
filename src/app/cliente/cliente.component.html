@@ -1,89 +1,161 @@
-<div style="max-width: 500px; margin: auto; border: 2px solid #351199; background-color: rgb(3, 35, 179); border-radius: 15px; padding: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.2);">
-  <h2>Cadastro de Cliente</h2>
+<section
+  class="h-100 custom-bg d-flex align-items-center justify-content-center"
+>
+<div id="goldRain" class="chuva-dourada" style="display: none"></div>
+ <!-- Popup de boas-vindas -->
+  <div class="popup-welcome" *ngIf="mostrarPopup">
+    Seja bem-vindo!
+  </div>
 
-  <form (ngSubmit)="salvarCliente()" #form="ngForm">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-xl-10">
+        <div class="card rounded-3 text-black">
+          <div class="row g-0 justify-content-center">
+            <div class="col-lg-8">
+              <div class="card-body p-md-5 mx-md-4">
+                <h2 class="text-center mb-4">Cadastro de Cliente</h2>
 
-    <mat-form-field appearance="fill" style="width: 100%;">
-      <mat-label>Nome</mat-label>
-      <input matInput name="nome" [(ngModel)]="cliente.nome" required />
-    </mat-form-field>
+                <form (ngSubmit)="salvarCliente()" #form="ngForm" novalidate>
+                  <!-- Campos do formulário (exemplo) -->
+                  <mat-form-field appearance="fill" style="width: 100%">
+                    <mat-label>Nome</mat-label>
+                    <input
+                      matInput
+                      name="nome"
+                      [(ngModel)]="cliente.nome"
+                      required
+                    />
+                  </mat-form-field>
 
-   <mat-form-field appearance="fill" style="width: 100%;">
-  <mat-label>CPF</mat-label>
-  <input matInput name="cpf" [(ngModel)]="cliente.cpf" required (blur)="verificarCpfExistente(cliente.cpf)" required/>
-  <mat-error *ngIf="cpfExiste">Este CPF já está cadastrado!</mat-error>
-</mat-form-field>
+                  <mat-form-field appearance="fill" style="width: 100%">
+                    <mat-label>CPF</mat-label>
+                    <input matInput name="cpf" [(ngModel)]="cliente.cpf" required (blur)="verificarCpfExistente(cliente.cpf)" autocomplete="off" />
 
-    <mat-form-field appearance="fill" style="width: 100%;">
-      <mat-label>Email</mat-label>
-      <input matInput name="email" type="email" [(ngModel)]="cliente.email" />
-    </mat-form-field>
+                    <mat-error *ngIf="cpfExiste"
+                      >Este CPF já está cadastrado!</mat-error
+                    >
+                  </mat-form-field>
 
-    <mat-form-field appearance="fill" style="width: 100%;">
-      <mat-label>Telefone</mat-label>
-      <input matInput name="telefone" [(ngModel)]="cliente.telefone" />
-    </mat-form-field>
+                  <mat-form-field appearance="fill" style="width: 100%">
+                    <mat-label>Email</mat-label>
+                    <input
+                      matInput
+                      name="email"
+                      type="email"
+                      [(ngModel)]="cliente.email"
+                    />
+                  </mat-form-field>
 
-    <mat-form-field appearance="fill" style="width: 100%;">
-      <mat-label>Gênero</mat-label>
-      <mat-select name="genero" [(ngModel)]="cliente.genero">
-        <mat-option value="M">Masculino</mat-option>
-        <mat-option value="F">Feminino</mat-option>
-        <mat-option value="O">Outro</mat-option>
-      </mat-select>
-    </mat-form-field>
+                  <mat-form-field appearance="fill" style="width: 100%">
+                    <mat-label>Telefone</mat-label>
+                    <input
+                      matInput
+                      name="telefone"
+                      [(ngModel)]="cliente.telefone"
+                    />
+                  </mat-form-field>
 
-   <mat-form-field appearance="fill" style="width: 100%;">
-  <mat-label>Data de Nascimento</mat-label>
-  <input matInput [matDatepicker]="picker" name="dataNascimento" [(ngModel)]="cliente.dataNascimento" placeholder="dd/mm/yyyy" />
-  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-  <mat-datepicker #picker></mat-datepicker>
-</mat-form-field>
+                  <mat-form-field appearance="fill" style="width: 100%">
+                    <mat-label>Gênero</mat-label>
+                    <mat-select name="genero" [(ngModel)]="cliente.genero">
+                      <mat-option value="M">Masculino</mat-option>
+                      <mat-option value="F">Feminino</mat-option>
+                      <mat-option value="O">Outro</mat-option>
+                    </mat-select>
+                  </mat-form-field>
 
-  <mat-form-field appearance="fill" style="width: 100%;">
-  <mat-label>CEP</mat-label>
-  <input matInput name="cep"
-         [(ngModel)]="cliente.cep"
-         (blur)="buscarEnderecoPorCep(cliente.cep)" />
-</mat-form-field>
+                  <mat-form-field appearance="fill" style="width: 100%">
+                    <mat-label>Data de Nascimento</mat-label>
+                    <input
+                      matInput
+                      [matDatepicker]="picker"
+                      name="dataNascimento"
+                      [(ngModel)]="cliente.dataNascimento"
+                      placeholder="dd/mm/yyyy"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="picker"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
 
+                  <mat-form-field appearance="fill" style="width: 100%">
+                    <mat-label>CEP</mat-label>
+                    <input
+                      matInput
+                      name="cep"
+                      [(ngModel)]="cliente.cep"
+                      (blur)="buscarEnderecoPorCep(cliente.cep)"
+                    />
+                  </mat-form-field>
 
-    <mat-form-field appearance="fill" style="width: 100%;">
-      <mat-label>UF</mat-label>
-      <input matInput name="uf" [(ngModel)]="cliente.uf" />
-    </mat-form-field>
+                  <mat-form-field appearance="fill" style="width: 100%">
+                    <mat-label>UF</mat-label>
+                    <input matInput name="uf" [(ngModel)]="cliente.uf" />
+                  </mat-form-field>
 
-    <mat-form-field appearance="fill" style="width: 100%;">
-      <mat-label>Logradouro</mat-label>
-      <input matInput name="logradouro" [(ngModel)]="cliente.endereco.logradouro" />
-    </mat-form-field>
+                  <mat-form-field appearance="fill" style="width: 100%">
+                    <mat-label>Logradouro</mat-label>
+                    <input
+                      matInput
+                      name="logradouro"
+                      [(ngModel)]="cliente.endereco.logradouro"
+                    />
+                  </mat-form-field>
 
-    <mat-form-field appearance="fill" style="width: 100%;">
-      <mat-label>Complemento</mat-label>
-      <input matInput name="complemento" [(ngModel)]="cliente.endereco.complemento" />
-    </mat-form-field>
+                  <mat-form-field appearance="fill" style="width: 100%">
+                    <mat-label>Complemento</mat-label>
+                    <input
+                      matInput
+                      name="complemento"
+                      [(ngModel)]="cliente.endereco.complemento"
+                    />
+                  </mat-form-field>
 
-    <mat-form-field appearance="fill" style="width: 100%;">
-      <mat-label>Bairro</mat-label>
-      <input matInput name="bairro" [(ngModel)]="cliente.endereco.bairro" />
-    </mat-form-field>
+                  <mat-form-field appearance="fill" style="width: 100%">
+                    <mat-label>Bairro</mat-label>
+                    <input
+                      matInput
+                      name="bairro"
+                      [(ngModel)]="cliente.endereco.bairro"
+                    />
+                  </mat-form-field>
 
-    <mat-form-field appearance="fill" style="width: 100%;">
-      <mat-label>Cidade</mat-label>
-      <input matInput name="cidade" [(ngModel)]="cliente.endereco.cidade" />
-    </mat-form-field>
+                  <mat-form-field appearance="fill" style="width: 100%">
+                    <mat-label>Cidade</mat-label>
+                    <input
+                      matInput
+                      name="cidade"
+                      [(ngModel)]="cliente.endereco.cidade"
+                    />
+                  </mat-form-field>
 
-
-
-  <div class="botoes-container" >
-  <button mat-raised-button  type="submit" class="botao-personalizado">
-    Salvar
-  </button>
-  <button mat-stroked-button  type="button" class="botao-personalizado" (click)="resetarFormulario()">
-    Limpar
-  </button>
-</div>
-
-
-  </form>
-</div>
+                  <!-- Botões -->
+                  <div class="botoes-container text-center mt-4">
+                    <button
+                      mat-raised-button
+                      type="submit"
+                      class="botao-personalizado salvar me-2"
+                    >
+                      Salvar
+                    </button>
+                    <button
+                      mat-stroked-button
+                      type="button"
+                      class="botao-personalizado limpar"
+                      (click)="resetarFormulario()"
+                    >
+                      Limpar
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

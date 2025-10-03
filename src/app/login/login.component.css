@@ -1,5 +1,69 @@
-mat-card-title {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.gradient-custom-2 {
+/* fallback for old browsers */
+background: #fccb90;
+
+/* Chrome 10-25, Safari 5.1-6 */
+background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+
+/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
 }
+
+@media (min-width: 768px) {
+.gradient-form {
+height: 100vh !important;
+}
+}
+@media (min-width: 769px) {
+.gradient-custom-2 {
+border-top-right-radius: .3rem;
+border-bottom-right-radius: .3rem;
+}
+}
+/* Fundo preto com gradiente animado */
+.custom-bg {
+  position: relative;
+  background: linear-gradient(270deg, #000000, #1a1a1a, #000000);
+  background-size: 600% 600%;
+  animation: gradientShift 10s ease infinite;
+  min-height: 100vh;
+}
+
+/* Animação suave do gradiente */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Estilo dourado para o card */
+.card {
+  border: 2px solid gold;
+  box-shadow: 0 0 20px gold;
+  background-color: rgba(255, 255, 255, 0.95); /* leve transparência */
+  border-radius: 20px;
+}
+
+/* Centralização do conteúdo */
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+.custom-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255,215,0,0.2), transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+

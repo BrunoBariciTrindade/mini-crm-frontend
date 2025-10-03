@@ -1,23 +1,58 @@
+<section class="h-100 custom-bg d-flex align-items-center justify-content-center">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-xl-10">
+        <div class="card rounded-3 text-black">
+          <div class="row g-0">
+            <div class="col-lg-6">
+              <div class="card-body p-md-5 mx-md-4">
+                <div class="text-center">
+                  <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
+                    style="width: 100px;" alt="logo">
+                  <h4 class="mt-1 mb-5 pb-1">We are The Lotus Team</h4>
+                </div>
 
-<div style="display: flex; flex-direction: column; align-items: center; margin-top: 100px;" border="1px solid black">
-<mat-card style="width: 300px; text-align: center; background-color: #0306a1; color: rgb(161, 158, 158);">
-    <mat-card-title style="padding: 18px 5px;  text-align: center; width: 100%; font-size: 28px;">
-  LOGIN
-</mat-card-title>
-    <mat-card-content>
-      <form #loginForm="ngForm" (ngSubmit)="login()">
-        <mat-form-field style="width: 100%;">
-          <mat-label>Usuário</mat-label>
-          <input matInput [(ngModel)]="username" name="username" required>
-        </mat-form-field>
+                <form>
+                  <p>Por favor logar em sua conta</p>
 
-        <mat-form-field style="width: 100%;">
-          <mat-label>Senha</mat-label>
-          <input matInput [(ngModel)]="password" name="password" type="password" required>
-        </mat-form-field>
-        <button mat-raised-button color="primary" style="width: 100%; margin-top: 10px;"(click)="cadastrar()"> Cadastrar </button>
-        <button mat-raised-button color="primary" style="width: 100%; margin-top: 10px;">Entrar</button>
-      </form>
-    </mat-card-content>
-  </mat-card>
-</div>
+                  <div class="form-outline mb-4">
+                    <input type="email" id="form2Example11" class="form-control"
+                      placeholder="Phone number or email address" />
+                    <label class="form-label" for="form2Example11">Username</label>
+                  </div>
+
+                  <div class="form-outline mb-4">
+                    <input type="password" id="form2Example22" class="form-control" />
+                    <label class="form-label" for="form2Example22">Password</label>
+                  </div>
+
+                  <div class="text-center pt-1 mb-5 pb-1">
+                    <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"
+                      type="button" (click)="login()">Logar</button>
+                    <a class="text-muted" href="#!">Esqueceu sua senha?</a>
+                  </div>
+
+                  <div class="d-flex align-items-center justify-content-center pb-4">
+                    <p class="mb-0 me-2">Não tem uma conta?</p>
+                    <button type="button" class="btn btn-outline-danger"
+                      (click)="cadastrar()">Cadastrar</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <!-- Segunda coluna com imagem ou fundo -->
+            <div class="col-lg-6 d-flex align-items-center custom-right-col">
+              <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+                <h4 class="mb-4">We are more than just a company</h4>
+                <p class="small mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                  tempor incididunt ut labore et dolore magna aliqua...</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
