@@ -77,6 +77,9 @@ export class ClienteComponent {
         ddd: "",
         codigoSiafi: "",
       }
+      , senha: "", 
+       confirmarSenha: "" ,
+        userName: ""
     };
   }
 
@@ -119,46 +122,57 @@ export class ClienteComponent {
   }
 
   salvarCliente() {
-    
-    if (this.clienteSelecionado) {
-      // Atualiza cliente existente
-      this.clienteService.atualizar(this.cliente).subscribe(() => {
-        alert("Cliente atualizado!");
-        this.resetarFormulario();
-        this.listarClientes();
-      });
-    } else {
-      // Verifica se CPF já está cadastrado
-      this.clienteService.verificarCpfExistente(this.cliente.cpf).subscribe(
-        (existe) => {
-          if (existe) {
-            alert("CPF já cadastrado!");
-          } else {
-            // Cadastra novo cliente
-            this.clienteService.cadastrar(this.cliente).subscribe(() => {
-              alert("Cliente cadastrado com sucesso!");
-              this.ativarChuvaDourada();
-              this.resetarFormulario();
-              this.listarClientes();
-               // Aqui ativa o popup de boas-vindas
-              this.mostrarPopup = true;
-
-              setTimeout(() => {
-                this.mostrarPopup = false;
-              }, 4000); // 4 segundos
-              
-            });
-            
-          
-          }
-        },
-        (error) => {
-          console.error("Erro ao verificar CPF:", error);
-          alert("Erro ao verificar CPF.");
-        }
-      );
-    }
+  // 1. Verifica se as senhas são diferentes
+  if (this.verificarSenhas()) {
+    return;
   }
+
+  if (this.clienteSelecionado) {
+    // Atualiza cliente existente
+    this.clienteService.atualizar(this.cliente).subscribe(() => {
+      alert("Cliente atualizado!");
+      this.resetarFormulario();
+      this.listarClientes();
+    });
+  } else {
+    // Verifica se CPF já está cadastrado
+    this.clienteService.verificarCpfExistente(this.cliente.cpf).subscribe(
+      (existe) => {
+        if (existe) {
+          alert("CPF já cadastrado!");
+          return;
+        }
+
+        // Cadastra novo cliente
+        this.clienteService.cadastrar(this.cliente).subscribe(() => {
+          alert("Cliente cadastrado com sucesso!");
+          this.ativarChuvaDourada();
+          this.resetarFormulario();
+          this.listarClientes();
+
+          // Mostra popup de boas-vindas
+          this.mostrarPopup = true;
+          setTimeout(() => {
+            this.mostrarPopup = false;
+          }, 4000); // 4 segundos
+        });
+      },
+      (error) => {
+        console.error("Erro ao verificar CPF:", error);
+        alert("Erro ao verificar CPF.");
+      }
+    );
+  }
+}
+private verificarSenhas(): boolean {
+    if (this.cliente.senha !== this.cliente.confirmarSenha) {
+      alert('As senhas não coincidem!');
+      return true;
+    }
+    return false;
+  }
+
+
 
   // Ativa chuva dourada
   private ativarChuvaDourada() {

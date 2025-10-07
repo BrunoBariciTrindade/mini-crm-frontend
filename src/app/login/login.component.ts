@@ -6,7 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule, Router } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-
+import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -26,15 +26,23 @@ export class LoginComponent {
   username: string = '';
   password: string = '';
 
-  constructor(private router: Router) {}
+ constructor(private authService: AuthService, private router: Router) {}
 
   login() {
-    
-    if (this.username === 'admin' && this.password === '123') {
-      this.router.navigate(['pedidos']);
-    } else {
-      alert('Usuário ou senha inválidos');
-    }
+    this.authService.login(this.username, this.password).subscribe({
+      
+      next: (response) => {
+console.log('✅ Dados retornados pelo backend (login OK):', response);        // Supondo que o backend retorne algo como { token: '...' }
+        this.authService.saveToken(response.token);
+        this.router.navigate(['pedidos']);
+        
+      },
+      error: (err) => {
+        console.log('Tentando login com:', this.username, this.password);
+        alert('Usuário ou senha inválidos');
+        console.error(err);
+      }
+    });
   }
   cadastrar() {
     this.router.navigate(['clientes']);

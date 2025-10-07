@@ -21,4 +21,7 @@ export interface Cliente {
   dataNascimento: string;
   endereco: Endereco;
   uf: string;
+  userName: string;
+  senha: string;
+  confirmarSenha?: string;
 }
