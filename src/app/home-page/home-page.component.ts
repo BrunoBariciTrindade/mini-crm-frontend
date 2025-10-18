@@ -11,6 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'app-home-page',
   imports: [  MatBadgeModule,
@@ -27,7 +28,7 @@ import { RouterModule } from '@angular/router';
   styleUrl: './home-page.component.css'
 })
 export class HomePage {
-
+constructor(public authService: AuthService) {} 
 }
 
 

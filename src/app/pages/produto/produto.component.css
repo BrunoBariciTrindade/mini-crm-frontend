@@ -35,3 +35,30 @@ footer {
 footer p {
   margin-bottom: .25rem;
 }
+.card {
+  display: inline-block;   /* card ajusta a largura à imagem */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 10px;
+}
+
+
+.card-body {
+  padding: 10px;
+  text-align: center;
+}
+.card-img-top {
+  width: 250px;        /* define a largura fixa */
+  height: 350px;       /* define a altura fixa */
+  object-fit: cover;   /* corta a imagem mantendo proporção */
+  display: block;
+  margin: 0 auto;
+}
+.btn-custom {
+  width: 150px;       /* Define a mesma largura para todos */
+  height: 40px;       /* Define a mesma altura */
+  display: inline-flex; 
+  align-items: center; 
+  justify-content: center; /* Centraliza o texto */
+}

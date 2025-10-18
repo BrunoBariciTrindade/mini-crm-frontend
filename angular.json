@@ -79,16 +79,15 @@
               "zone.js/testing"
             ],
             "tsConfig": "tsconfig.spec.json",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
-            ],
-            "styles": [
-              "@angular/material/prebuilt-themes/azure-blue.css",
-              "src/styles.css"
-            ],
+          "assets": [
+  {
+    "glob": "**/*",
+    "input": "src/assets",
+    "output": "/assets"
+  }
+]
+
+,
             "scripts": []
           }
         }

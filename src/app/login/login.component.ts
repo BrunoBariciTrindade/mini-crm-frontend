@@ -7,6 +7,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { RouterModule, Router } from "@angular/router";
 import { HttpClientModule } from "@angular/common/http";
 import { AuthService } from "../services/auth.service";
+import { OnInit } from "@angular/core";
 @Component({
   selector: "app-login",
   standalone: true,
@@ -22,7 +23,7 @@ import { AuthService } from "../services/auth.service";
   styleUrl: "./login.component.css",
   templateUrl: "./login.component.html",
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   cpf: string = "";
   senha: string = "";
 
@@ -31,9 +32,9 @@ export class LoginComponent {
   login() {
     this.authService.login(this.cpf, this.senha).subscribe({
       next: (response) => {
-        console.log("✅ Dados retornados pelo backend (login OK):", response); // Supondo que o backend retorne algo como { token: '...' }
+        console.log("✅ Dados retornados pelo backend (login OK):", response); 
         this.authService.saveToken(response.token);
-        this.router.navigate(["pedidos"]);
+        this.router.navigate(["home"]);
       },
       error: (err) => {
         console.log("Tentando login com:", this.cpf, this.senha);
@@ -41,6 +42,22 @@ export class LoginComponent {
         console.error(err);
       },
     });
+  }
+   logout(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userId'); // se você salvar o id do usuário também
+  }
+   ngOnInit(): void {
+    
+    const token = this.authService.getToken();
+    if (token) {
+      console.log("Usuário ainda logado com token:", token);
+     
+       this.router.navigate(['home']);
+    }
+  }
+  isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
   }
   cadastrar() {
     this.router.navigate(["clientes"]);

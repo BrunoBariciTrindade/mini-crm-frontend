@@ -12,15 +12,15 @@ interface Product {
 
 @Component({
   selector: 'app-product-card',
-  standalone: true, // se estiver usando standalone
+  standalone: true, 
   imports: [
-    // importa módulos que o card usa, ex:
+   
     CommonModule,
     MatCardModule,
     MatButtonModule,
   ],
   templateUrl: './product-card.component.html',
-})
+})    
 export class ProductCardComponent {
   @Input() product!: Product;
   @Output() add = new EventEmitter<Product>();
