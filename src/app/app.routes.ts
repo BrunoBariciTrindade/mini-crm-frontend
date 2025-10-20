@@ -24,7 +24,7 @@ export const routes: Routes = [
   { path: 'precos', component: PrecosComponent },
   {path: 'clientes', component: ClienteComponent },
   {path: 'pedidos', component: PedidosComponent },
-  {path: 'cart', component: CartComponent },
+  {path: 'carrinho', component: CartComponent },
   
   { path: '', redirectTo: 'home', pathMatch: 'full' }, // ou a home
 ];
