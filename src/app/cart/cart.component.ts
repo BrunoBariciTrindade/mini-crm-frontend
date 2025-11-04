@@ -1,79 +1,83 @@
-import { Component } from '@angular/core';
+// src/app/features/carrinho/cart.component.ts
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { CartItem } from './models/cartItem.model';
-import { Product } from './models/product.model';
 import { Router } from '@angular/router';
+import { CartService } from '../services/cart.service';
+import { CartItem } from '../models/cartItem.model';
+import { Product } from '../models/product.model';
+import { PedidoService } from '../services/pedido.service';
+
+
 @Component({
   selector: 'app-cart',
-  imports: [CommonModule,
+  standalone: true,
+  imports: [
+    CommonModule,
     FormsModule,
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule,],
+    MatButtonModule
+  ],
   templateUrl: './cart.component.html',
-  styleUrl: './cart.component.css'
+  styleUrls: ['./cart.component.css']
 })
-export class CartComponent {
- cartItems: CartItem[] = [];
-  cartCount = 0;
- constructor(private router : Router) {}
+export class CartComponent implements OnInit {
+  cartItems: CartItem[] = [];
+
+  constructor(
+    private router: Router,
+    private cartService: CartService,
+    private pedidoService: PedidoService
+  ) {}
+
   ngOnInit() {
-    // Simulando resposta do backend
-    this.cartItems = [
-      {
-        product: {
-          id: 1,
-          name: 'Tênis Esportivo',
-          price: 299.99,
-          image: 'https://angular.io/assets/images/logos/angular/angular.png', // troque pela url correta
-        },
-        quantity: 2,
-      },
-      {
-        product: {
-          id: 2,
-          name: 'Camiseta Básica',
-          price: 49.9,
-          image: 'https://angular.io/assets/images/logos/angular/angular_solidBlack.png', // troque pela url correta
-        },
-        quantity: 1,
-      },
-    ];
-  }
-
-  addToCart(product: Product) {
-    // Aqui você adiciona o produto ao carrinho
-    console.log('Produto adicionado:', product);
-
-    // Exemplo simples: só incrementa o contador
-    this.cartCount++;
+  this.cartService.getCartItemsFromBackend().subscribe(items => {
+    this.cartItems = items;
+  });
 }
+
   update(product: Product, quantity: number) {
-    if (quantity < 1) {
-      quantity = 1;
-    }
-    const item = this.cartItems.find(i => i.product.id === product.id);
-    if (item) {
-      item.quantity = quantity;
-    }
+    if (quantity < 1) quantity = 1;
+    this.cartService.atualizarQuantidade(product, quantity);
+    this.cartItems = this.cartService.getCartItems();
   }
 
   remove(product: Product) {
-    this.cartItems = this.cartItems.filter(i => i.product.id !== product.id);
+    this.cartService.removerProduto(product);
+    this.cartItems = this.cartService.getCartItems();
   }
 
   getTotal(): number {
-    return this.cartItems.reduce((total, item) => total + item.product.price * item.quantity, 0);
+    return this.cartService.getTotal();
   }
 
   checkout() {
-    alert(`Total do pedido: ${this.getTotal().toFixed(2)}`);
-     this.router.navigate(['login']);
-  }
+  const pedido = {
+    clienteId: 1,
+    itens: this.cartItems.map(item => ({
+      product: item.product,
+      quantity: item.quantity
+    })),
+    total: this.getTotal()
+  };
+
+  this.pedidoService.enviarPedido(pedido).subscribe({
+    next: () => {
+      alert('Pedido enviado com sucesso!');
+      this.cartService.limparCarrinho();
+      this.router.navigate(['/pedidos']);
+    },
+    error: (err) => {
+      console.error('Erro ao enviar pedido', err);
+      alert('Erro ao finalizar pedido');
+    }
+  });
+}
+
 }

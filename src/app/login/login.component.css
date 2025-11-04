@@ -3,10 +3,10 @@
 background: #fccb90;
 
 /* Chrome 10-25, Safari 5.1-6 */
-background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+background: -webkit-linear-gradient(to right, #423f3d, #d8363a, #dd3675, #b44593);
 
 /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+background: linear-gradient(to right, #1b1a1a, #221c1c, #130363, #170126);
 }
 
 @media (min-width: 768px) {
@@ -66,4 +66,33 @@ border-bottom-right-radius: .3rem;
   pointer-events: none;
   z-index: 0;
 }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container,
+.row {
+  height: 100%;
+}
+@media (max-width: 767.98px) {
+  .custom-right-col {
+    display: none !important;
+  }
+}
+button {
+  width: 100%;
+}
+@media (min-width: 768px) {
+  button {
+
+    width: auto;
+    padding: 0.5rem 2rem;
+  }
+}
+
+
 

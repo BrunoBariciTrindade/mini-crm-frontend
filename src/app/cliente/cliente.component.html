@@ -1,11 +1,9 @@
 <section
   class="h-100 custom-bg d-flex align-items-center justify-content-center"
 >
-<div id="goldRain" class="chuva-dourada" style="display: none"></div>
- <!-- Popup de boas-vindas -->
-  <div class="popup-welcome" *ngIf="mostrarPopup">
-    Seja bem-vindo!
-  </div>
+  <div id="goldRain" class="chuva-dourada" style="display: none"></div>
+  <!-- Popup de boas-vindas -->
+  <div class="popup-welcome" *ngIf="mostrarPopup">Seja bem-vindo!</div>
 
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
@@ -30,7 +28,14 @@
 
                   <mat-form-field appearance="fill" style="width: 100%">
                     <mat-label>CPF</mat-label>
-                    <input matInput name="cpf" [(ngModel)]="cliente.cpf" required (blur)="verificarCpfExistente(cliente.cpf)" autocomplete="off" />
+                    <input
+                      matInput
+                      name="cpf"
+                      [(ngModel)]="cliente.cpf"
+                      required
+                      (blur)="verificarCpfExistente(cliente.cpf)"
+                      autocomplete="off"
+                    />
 
                     <mat-error *ngIf="cpfExiste"
                       >Este CPF já está cadastrado!</mat-error
@@ -129,6 +134,35 @@
                       matInput
                       name="cidade"
                       [(ngModel)]="cliente.endereco.cidade"
+                    />
+                  </mat-form-field>
+                  <mat-form-field appearance="fill" style="width: 100%">
+                    <mat-label>Username</mat-label>
+                    <input
+                      matInput
+                      name="userName"
+                      [(ngModel)]="cliente.userName"
+                    />
+                  </mat-form-field>
+                  <mat-form-field appearance="fill" style="width: 100%">
+                    <mat-label>Senha</mat-label>
+                    <input
+                      matInput
+                      name="senha"
+                      type="password"
+                      [(ngModel)]="cliente.senha"
+                      required
+                    />
+                  </mat-form-field>
+
+                  <mat-form-field appearance="fill" style="width: 100%">
+                    <mat-label>Confirmar Senha</mat-label>
+                    <input
+                      matInput
+                      name="confirmarSenha"
+                      type="password"
+                      [(ngModel)]="cliente.confirmarSenha"
+                      required
                     />
                   </mat-form-field>
 

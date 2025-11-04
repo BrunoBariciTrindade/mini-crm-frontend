@@ -4,7 +4,7 @@ import { Routes } from '@angular/router';
 import { ClienteComponent } from './cliente/cliente.component';
 import { PedidosComponent } from './pedidos/pedidos.component';
 import { LoginComponent } from './login/login.component';
-import { CarrinhoComponent } from './carrinho/carrinho.component';
+
 import { HomePage } from './home-page/home-page.component';
 import { CartComponent } from './cart/cart.component';
 import { ProdutoComponent } from './pages/produto/produto.component';
@@ -22,9 +22,10 @@ export const routes: Routes = [
   { path: 'premium', component: PremiumComponent },
   { path: 'suporte', component: SuporteComponent },
   { path: 'precos', component: PrecosComponent },
-  { path: 'carrinho', component: CarrinhoComponent },
   {path: 'clientes', component: ClienteComponent },
   {path: 'pedidos', component: PedidosComponent },
+  {path: 'carrinho', component: CartComponent },
+  
   { path: '', redirectTo: 'home', pathMatch: 'full' }, // ou a home
 ];
 
